@@ -6,10 +6,21 @@ public class Movement : MonoBehaviour
 {
     public Controls controls;
 
-    public Rigidbody2D[] rb;
     public float movementSpeed;
-
+    public float jumpHeight;
     float moveDirectionX;
+
+    public Rigidbody2D rb;
+
+    bool facingRight = true;
+
+    public Transform groundCheck;
+    public float groundRadius = 0.2f;
+    public LayerMask groundMask;
+    bool isGrounded;
+
+
+
 
     #region Input System
     private void Awake()
@@ -36,7 +47,25 @@ public class Movement : MonoBehaviour
     void Update()
     {
         moveDirectionX = controls.Player.Movement.ReadValue<float>();
-        ProcessInputs();
+
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundMask);
+
+        bool jumpingPressed = isJumping();
+        if(isGrounded && jumpingPressed)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+        }
+
+        if(!facingRight && moveDirectionX > 0f)
+        {
+            flip();
+        }
+        else if(facingRight && moveDirectionX < 0f)
+        {
+            flip();
+        }
+
+        jump();
     }
 
     void FixedUpdate()
@@ -44,16 +73,21 @@ public class Movement : MonoBehaviour
         Move();
     }
 
-    void ProcessInputs()
-    {
-        //Implement Jump
-    }
-
     void Move()
     {
-        foreach (var rigidbody in rb)
-        {
-            rigidbody.velocity = new Vector2(moveDirectionX * movementSpeed, rigidbody.velocity.y);
-        } 
+        rb.velocity = new Vector2(moveDirectionX * movementSpeed, rb.velocity.y);
+    }
+
+    void jump()
+    {
+
+    }
+
+    void flip()
+    {
+        facingRight = !facingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
     }
 }
