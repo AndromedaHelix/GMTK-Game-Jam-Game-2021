@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
+    public Animator animator;
+
+    int isOpenHash;
+
     public bool isPressed;
 
-    public BoxCollider2D boxCollider2D;
+    private void Start()
+    {
+        isOpenHash = Animator.StringToHash("isOpened");
+    }
 
     private void Update()
     {
         if(isPressed)
         {
-            boxCollider2D.enabled = false;
-            Debug.Log("oppened");
+            animator.SetBool(isOpenHash, true);
         }
         else if(!isPressed)
         {
-            boxCollider2D.enabled = true;
-            Debug.Log("Closed");
+            animator.SetBool(isOpenHash, false);
         }
     }
 
