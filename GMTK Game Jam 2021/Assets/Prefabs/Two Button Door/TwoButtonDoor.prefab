@@ -92,6 +92,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 97bfef4a669674b52863e3d385b919fd, type: 2}
+    - target: {fileID: 6646644230025721788, guid: 7ae8fc0351aa44a94be3278e45c78866, type: 3}
+      propertyPath: m_Size.y
+      value: 2.500989
+      objectReference: {fileID: 0}
+    - target: {fileID: 6646644230025721788, guid: 7ae8fc0351aa44a94be3278e45c78866, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ae8fc0351aa44a94be3278e45c78866, type: 3}
 --- !u!1 &3288398097788367557 stripped
