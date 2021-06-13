@@ -6,6 +6,8 @@ public class Movement : MonoBehaviour
 {
     public Controls controls;
 
+    public AudioSource jumpSound;
+
     public float movementSpeed;
     public float jumpHeight;
     float moveDirectionX;
@@ -18,8 +20,6 @@ public class Movement : MonoBehaviour
     public float groundRadius = 0.2f;
     public LayerMask groundMask;
     bool isGrounded;
-
-
 
 
     #region Input System
@@ -54,6 +54,7 @@ public class Movement : MonoBehaviour
         if(isGrounded && jumpingPressed)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+            jumpSound.Play();
         }
 
         if(!facingRight && moveDirectionX > 0f)
@@ -64,8 +65,6 @@ public class Movement : MonoBehaviour
         {
             flip();
         }
-
-        jump();
     }
 
     void FixedUpdate()
@@ -76,11 +75,6 @@ public class Movement : MonoBehaviour
     void Move()
     {
         rb.velocity = new Vector2(moveDirectionX * movementSpeed, rb.velocity.y);
-    }
-
-    void jump()
-    {
-
     }
 
     void flip()
